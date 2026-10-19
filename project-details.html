@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Details</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body>
+    <nav class="detail-navbar">
+      <div class="detail-nav-container">
+        <a href="index.html" class="btn-back">
+          <i data-lucide="arrow-left" class="icon-move"></i>
+          <span>Back to Portfolio</span>
+        </a>
+      </div>
+    </nav>
+
+    <main>
+      <section id="ProjectDetails" style="padding-top: 3rem">
+        <div class="details-wrapper">
+          <div class="details-left">
+            <h1 id="detail-title" class="detail-title">Judul Proyek</h1>
+            <div class="title-underline"></div>
+
+            <p id="detail-desc" class="detail-description">
+              Deskripsi proyek akan muncul di sini...
+            </p>
+
+            <div class="stats-row">
+              <div class="stat-box-small">
+                <i data-lucide="code-2" class="stat-icon"></i>
+                <div class="stat-text">
+                  <strong id="tech-count">0</strong>
+                  <span>Total Teknologi</span>
+                </div>
+              </div>
+              <div class="stat-box-small">
+                <i data-lucide="layers" class="stat-icon"></i>
+                <div class="stat-text">
+                  <strong id="feature-count">0</strong>
+                  <span>Fitur Utama</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="action-buttons">
+              <a
+                id="btn-github"
+                href="#"
+                target="_blank"
+                class="btn-action btn-github"
+              >
+                <i data-lucide="github"></i> Github Repo
+              </a>
+              <button class="btn-action btn-demo disabled">
+                <i data-lucide="monitor-off"></i> Demo Not Available
+              </button>
+            </div>
+
+            <div class="tech-section">
+              <h3>&lt;/&gt; Technologies Used</h3>
+              <div id="tech-tags" class="tech-tags-container"></div>
+            </div>
+          </div>
+
+          <div class="details-right">
+            <div class="screenshot-container">
+              <img id="main-screenshot" src="" alt="Project Screenshot" />
+            </div>
+
+            <div class="features-card">
+              <h3>
+                <i data-lucide="star" style="color: #f5b841; width: 20px"></i>
+                Key Features
+              </h3>
+              <ul id="features-list"></ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Inisialisasi Icon
+      lucide.createIcons();
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const projectData = JSON.parse(localStorage.getItem("currentProject"));
+
+        if (!projectData) {
+          window.location.href = "index.html";
+          return;
+        }
+
+        // 1. Isi Data Teks
+        document.getElementById("detail-title").textContent = projectData.title;
+        document.getElementById("detail-desc").textContent =
+          projectData.description;
+        document.title = projectData.title + " - Details";
+
+        // 2. Isi Gambar Utama (Screenshot pertama)
+        const mainImg = document.getElementById("main-screenshot");
+        if (projectData.screenshots && projectData.screenshots.length > 0) {
+          mainImg.src = projectData.screenshots[0];
+        } else {
+          mainImg.src = projectData.image; // Fallback ke thumbnail
+        }
+
+        // 3. Isi Statistik
+        const techLength = projectData.technologies
+          ? projectData.technologies.length
+          : 0;
+        const featLength = projectData.features
+          ? projectData.features.length
+          : 0;
+        document.getElementById("tech-count").textContent = techLength;
+        document.getElementById("feature-count").textContent = featLength;
+
+        // 4. Isi Link Github
+        const btnGithub = document.getElementById("btn-github");
+        btnGithub.href = projectData.githubLink || "#";
+
+        // 5. Render Technologies Tags
+        const techContainer = document.getElementById("tech-tags");
+        if (projectData.technologies) {
+          projectData.technologies.forEach((tech) => {
+            const span = document.createElement("span");
+            span.className = "tech-tag";
+            span.textContent = tech;
+            techContainer.appendChild(span);
+          });
+        }
+
+        // 6. Render Key Features List
+        const featureList = document.getElementById("features-list");
+        if (projectData.features) {
+          projectData.features.forEach((feat) => {
+            const li = document.createElement("li");
+            li.textContent = feat;
+            featureList.appendChild(li);
+          });
+        }
+
+        // Re-init icons setelah render dynamic content
+        lucide.createIcons();
+      });
+    </script>
+  </body>
+</html>

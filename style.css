@@ -1,0 +1,1402 @@
+/* ----- GAYA DASAR & SCROLLBAR ----- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background-color: #080b1a;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #4f8cff, #f5b841);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #2f6fe0, #d99a2b);
+}
+
+/* (Reset Dasar) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+}
+
+body {
+  background-color: #080b1a;
+  color: #e0e6f1;
+}
+
+section {
+  min-height: 100vh;
+  padding: 120px 10%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ----- GAYA NAVBAR ----- */
+nav {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 50;
+  transition: background-color 0.5s ease, backdrop-filter 0.5s ease;
+  border-bottom: 1px solid transparent;
+}
+
+nav.scrolled {
+  background-color: rgba(8, 11, 26, 0.7);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 4rem;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-decoration: none;
+  background: linear-gradient(to right, #4f8cff, #f5b841);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.nav-links {
+  display: none;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .nav-links {
+    display: flex;
+  }
+}
+
+.nav-link {
+  color: #a8b2d1;
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  position: relative;
+  padding: 0.5rem 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #e0e6f1;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #4f8cff, #f5b841);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+}
+
+.nav-link.active {
+  background: linear-gradient(to right, #4f8cff, #f5b841);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 600;
+}
+
+/* ----- GAYA MENU MOBILE ----- */
+.mobile-menu-toggle {
+  display: block;
+  font-size: 1.5rem;
+  color: #a8b2d1;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .mobile-menu-toggle {
+    display: none;
+  }
+}
+
+.mobile-menu {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  background-color: #080b1a;
+}
+
+.mobile-menu.open {
+  max-height: 100vh;
+  opacity: 1;
+  padding: 1rem 0;
+}
+
+.mobile-link {
+  display: block;
+  color: #a8b2d1;
+  font-size: 1.125rem;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.75rem 5%;
+}
+
+.mobile-link:hover {
+  color: #e0e6f1;
+}
+
+/* ----- GAYA SECTION HOME ----- */
+#Home {
+  min-height: 100vh;
+  width: 100%;
+  padding: 0 5%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.home-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  min-height: 100vh;
+  padding-top: 5rem;
+  padding-bottom: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .home-container {
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.home-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+  order: 1;
+}
+
+@media (min-width: 1024px) {
+  .home-content {
+    width: 50%;
+    order: 1;
+  }
+}
+
+.status-badge {
+  position: relative;
+  display: inline-block;
+  align-self: flex-start;
+}
+.status-badge-glow {
+  position: absolute;
+  inset: -0.125rem;
+  background: linear-gradient(to right, #4f8cff, #f5b841);
+  border-radius: 9999px;
+  filter: blur(8px);
+  opacity: 0.3;
+  transition: opacity 1s;
+}
+.status-badge:hover .status-badge-glow {
+  opacity: 0.5;
+}
+.status-badge-content {
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to right, #4f8cff, #f5b841);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.status-badge-content svg {
+  color: #34d399;
+}
+
+.main-title h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+@media (min-width: 640px) {
+  .main-title h1 {
+    font-size: 3.75rem;
+  }
+}
+.main-title .gradient-text-1 {
+  color: #e0e6f1;
+}
+.main-title .gradient-text-2 {
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to right, #4f8cff, #f5b841);
+}
+
+.typing-effect {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+.typing-effect span {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #a8b2d1;
+}
+.typing-cursor {
+  width: 3px;
+  height: 1.5rem;
+  background: linear-gradient(to top, #4f8cff, #f5b841);
+  margin-left: 0.25rem;
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.description {
+  font-size: 1rem;
+  color: #8892b0;
+  max-width: 42rem;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+.tech-stack span {
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.875rem;
+  color: #a8b2d1;
+  transition: background-color 0.3s;
+}
+.tech-stack span:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 0.75rem;
+}
+.cta-button {
+  position: relative;
+  width: 160px;
+  text-decoration: none;
+}
+.cta-glow {
+  position: absolute;
+  inset: -0.125rem;
+  background: linear-gradient(to right, #4f8cff, #f5b841);
+  border-radius: 0.75rem;
+  opacity: 0.5;
+  filter: blur(10px);
+  transition: opacity 0.7s;
+}
+.cta-button:hover .cta-glow {
+  opacity: 0.9;
+}
+.cta-content {
+  position: relative;
+  height: 2.75rem;
+  background-color: #080b1a;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  overflow: hidden;
+  transition: gap 0.3s;
+}
+.cta-button:hover .cta-content {
+  gap: 0.75rem;
+}
+.cta-content span {
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to right, #e0e6f1, #ffffff);
+  font-weight: 500;
+  z-index: 10;
+}
+.cta-content svg {
+  width: 1rem;
+  height: 1rem;
+  color: #e0e6f1;
+  z-index: 10;
+  transition: transform 0.3s;
+}
+.cta-button:hover svg {
+  transform: rotate(45deg);
+}
+.cta-button:last-child:hover svg {
+  transform: translateX(4px);
+}
+
+.social-links {
+  display: none;
+}
+@media (min-width: 640px) {
+  .social-links {
+    display: flex;
+    gap: 1rem;
+  }
+}
+.social-button {
+  position: relative;
+  padding: 0.75rem;
+  text-decoration: none;
+}
+.social-glow {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to right, #4f8cff, #f5b841);
+  border-radius: 0.75rem;
+  filter: blur(8px);
+  opacity: 0.2;
+  transition: opacity 0.3s;
+}
+.social-button:hover .social-glow {
+  opacity: 0.4;
+}
+.social-content {
+  position: relative;
+  padding: 0.5rem;
+  border-radius: 0.75rem;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s;
+}
+.social-button:hover .social-content {
+  border-color: rgba(255, 255, 255, 0.2);
+}
+.social-content svg {
+  color: #8892b0;
+  transition: color 0.3s;
+}
+.social-button:hover .social-content svg {
+  color: #e0e6f1;
+}
+
+.home-animation {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  order: 2;
+  margin-top: 2rem;
+  overflow: hidden;
+}
+dotlottie-wc {
+  width: 95%;
+  height: 95%;
+}
+
+@media (min-width: 1024px) {
+  .home-animation {
+    width: 50%;
+    height: 600px;
+    order: 2;
+    margin-top: 0;
+    overflow: hidden;
+  }
+  #dotlottie-wc {
+    width: 900px;
+    height: 900px;
+  }
+}
+
+/* ----- GAYA SECTION ABOUT ----- */
+#About {
+  padding-bottom: 5rem;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.section-header h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to right, #4f8cff, #f5b841);
+  display: inline-block;
+}
+.section-header p {
+  margin-top: 0.5rem;
+  font-size: 1.125rem;
+  color: #8892b0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.about-container {
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .about-container {
+    flex-direction: row;
+    gap: 4rem;
+    align-items: flex-start;
+  }
+}
+
+.about-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: center;
+}
+
+@media (min-width: 1024px) {
+  .about-content {
+    text-align: left;
+  }
+}
+
+.about-content h2 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+.about-content h2 .gradient-text-1 {
+  color: #e0e6f1;
+}
+.about-content h2 .gradient-text-2 {
+  display: block;
+  margin-top: 0.5rem;
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+  background-image: linear-gradient(to right, #4f8cff, #f5b841);
+}
+
+.about-content .description {
+  color: #8892b0;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: justify;
+  padding-bottom: 0.5rem;
+}
+
+.quote-block {
+  position: relative;
+  background: linear-gradient(
+    to right,
+    rgba(79, 140, 255, 0.05),
+    rgba(245, 184, 65, 0.05)
+  );
+  border: 1px solid rgba(79, 140, 255, 0.3);
+  border-radius: 1rem;
+  padding: 1.5rem 1rem;
+  backdrop-filter: blur(10px);
+  margin: 1rem 0;
+  overflow: hidden;
+}
+.quote-icon {
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  font-size: 2rem;
+  color: rgba(79, 140, 255, 0.3);
+  line-height: 1;
+}
+.quote-text {
+  position: relative;
+  z-index: 10;
+  color: #a8b2d1;
+  text-align: center;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding-left: 1rem;
+}
+
+.about-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .about-buttons {
+    flex-direction: row;
+    width: auto;
+  }
+}
+.about-button-primary,
+.about-button-secondary {
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+.about-button-primary {
+  background: linear-gradient(to right, #4f8cff, #f5b841);
+  color: #080b1a;
+}
+.about-button-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(79, 140, 255, 0.2);
+}
+.about-button-secondary {
+  border: 1px solid rgba(79, 140, 255, 0.5);
+  color: #4f8cff;
+}
+.about-button-secondary:hover {
+  transform: scale(1.05);
+  background-color: rgba(79, 140, 255, 0.1);
+}
+
+.about-image-wrapper {
+  position: relative;
+  flex-shrink: 0;
+  max-width: 320px;
+}
+.profile-image {
+  width: 100%;
+  height: auto;
+  border-radius: 9999px;
+  object-fit: cover;
+  transition: all 0.7s ease;
+}
+.profile-image:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+.profile-image-border {
+  position: absolute;
+  inset: 0;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  border-radius: 9999px;
+  z-index: 20;
+  transition: all 0.7s ease;
+}
+.about-image-wrapper:hover .profile-image-border {
+  transform: scale(1.05);
+  border-color: rgba(79, 140, 255, 0.4);
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 4rem;
+  text-decoration: none;
+  width: 100%;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 768px) {
+  .stat-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.stat-card {
+  position: relative;
+  background-color: rgba(15, 20, 40, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+.stat-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+.stat-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(to bottom right, #4f8cff, #f5b841);
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+}
+.stat-card:hover::before {
+  opacity: 0.2;
+}
+.stat-card-icon {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin-bottom: 1rem;
+  color: #e0e6f1;
+  margin-left: auto;
+  margin-right: auto;
+}
+.stat-value {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: #e0e6f1;
+  display: block;
+}
+.stat-label {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  color: #a8b2d1;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.stat-description {
+  font-size: 0.75rem;
+  color: #8892b0;
+}
+
+/* Perbaikan Ukuran Font Kartu Statistik */
+.stat-card .stat-value {
+  font-size: 2rem;
+  line-height: 1.2;
+  margin-bottom: 0.25rem;
+  color: #e0e6f1;
+}
+.stat-card:first-child .stat-value {
+  font-size: 2.25rem;
+}
+
+/* ----- GAYA SECTION PORTOFOLIO ----- */
+#Portofolio {
+  padding-bottom: 5rem;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.project-card {
+  position: relative;
+  background-color: rgba(15, 20, 40, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  color: #a8b2d1;
+}
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 10px 30px rgba(79, 140, 255, 0.1);
+}
+
+.project-card-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+}
+.project-card:hover .project-card-image {
+  opacity: 1;
+}
+
+.project-card-content {
+  padding: 1.5rem;
+}
+
+.project-card-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #e0e6f1;
+  margin-bottom: 0.5rem;
+}
+
+.project-card-description {
+  font-size: 0.875rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.project-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  color: #4f8cff;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.project-card-link:hover {
+  color: #f5b841;
+  gap: 0.75rem;
+}
+.portfolio-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-top: 2rem;
+}
+
+.portfolio-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(15, 20, 40, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 0.75rem;
+  padding: 0.5rem;
+  flex-wrap: wrap; /* Untuk tampilan mobile agar bisa wrap */
+}
+
+.portfolio-tab {
+  background: none;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #a8b2d1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-tab:hover {
+  color: #e0e6f1;
+}
+
+.portfolio-tab.active {
+  color: #e0e6f1;
+  background: linear-gradient(to right, #4f8cff, #f5b841);
+  box-shadow: 0 4px 15px rgba(79, 140, 255, 0.3);
+}
+
+/* Tab content */
+.tab-content {
+  display: none;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tech Stack Grid Styling */
+.tech-stack-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  justify-items: center; /* Untuk menengahkan item */
+}
+
+.tech-stack-card {
+  background-color: rgba(15, 20, 40, 0.5);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  display: flexbox;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 150px;
+}
+
+.tech-stack-card:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 8px 20px rgba(79, 140, 255, 0.1);
+}
+
+.tech-stack-card img {
+  width: 60px; /* Ukuran ikon */
+  height: 60px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 5px rgba(79, 140, 255, 0.4)); /* Efek glowing ringan */
+}
+
+.tech-stack-card span {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #e0e6f1;
+}
+
+@media (max-width: 768px) {
+  .portfolio-tabs {
+    flex-direction: column;
+    align-items: center;
+    padding: 0.75rem;
+  }
+  .portfolio-tab {
+    width: 90%; /* Buat tombol tab lebih lebar di mobile */
+    justify-content: center;
+  }
+  .tech-stack-grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+  }
+  .tech-stack-card {
+    padding: 1rem;
+  }
+  .tech-stack-card img {
+    width: 40px;
+    height: 40px;
+  }
+  .tech-stack-card span {
+    font-size: 0.8rem;
+  }
+}
+
+/* ----- GAYA SECTION CONTACT ----- */
+#Contact {
+  padding-bottom: 5rem;
+}
+
+/* 1. Layout 2 Kolom */
+.contact-layout-container {
+  display: flex;
+  flex-direction: row; /* Berdampingan */
+  gap: 3rem; /* Jarak antar kolom */
+  max-width: 1200px; /* Batasi lebar total */
+  margin: 3rem auto 0 auto; /* Tengahkan */
+  align-items: flex-start;
+}
+
+/* 2. Kolom Kiri (Form) - Ini adalah kartu gelapnya */
+.contact-form-column {
+  flex: 2; /* Kolom form lebih besar */
+  min-width: 0;
+  /* Styling kartu gelap dari mockup */
+  background-color: #0f1428; /* (Warna biru tua, ganti dari .form-container lama) */
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+@media (min-width: 768px) {
+  .contact-form-column {
+    padding: 3rem;
+  }
+}
+
+/* 3. Kolom Kanan (Connect) */
+.connect-column {
+  flex: 1; /* Kolom connect lebih kecil */
+  min-width: 0;
+  margin-top: 1rem; /* Posisikan agar sejajar dengan "Mari Bicara" */
+}
+
+/* 4. Styling Teks Judul di Kedua Kolom */
+.contact-form-column .form-title,
+.connect-column .form-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  color: #e0e6f1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.connect-column .form-title svg {
+  color: #4f8cff; /* Warna ikon 'link' */
+}
+
+.contact-form-column .form-subtitle,
+.connect-column .form-subtitle {
+  font-size: 0.875rem;
+  color: #a8b2d1;
+  margin-bottom: 2rem;
+}
+
+/* 5. Styling Input Baru (WAJIB AGAR BISA KETIK) */
+.contact-form-column .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+.contact-form-column .input-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #a8b2d1;
+}
+
+.contact-form-column input,
+.contact-form-column textarea {
+  width: 100%;
+  padding: 1rem; /* Padding normal, karena tidak ada ikon */
+  background-color: #080b1a; /* Background lebih gelap dari kartu */
+  border-radius: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e0e6f1;
+  font-family: inherit;
+  font-size: 0.875rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-form-column textarea {
+  resize: vertical;
+}
+
+.contact-form-column input:focus,
+.contact-form-column textarea:focus {
+  outline: none;
+  border-color: #4f8cff;
+  box-shadow: 0 0 0 2px rgba(79, 140, 255, 0.3);
+}
+
+/* 6. Tombol Submit Baru (GRADIENT) */
+.contact-form-column .form-submit-button {
+  width: 100%; /* Buat tombolnya penuh */
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  /* Ini adalah gradient dari gambar Anda */
+  background: linear-gradient(to right, #8fb8ff, #4f8cff);
+  color: #080b1a; /* Warna teks gelap */
+  border: none;
+  font-size: 1rem;
+}
+.contact-form-column .form-submit-button:hover {
+  transform: scale(1.02);
+  opacity: 0.9;
+  box-shadow: 0 4px 20px rgba(79, 140, 255, 0.2);
+}
+.contact-form-column .form-submit-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: scale(1);
+}
+
+/* 7. Kartu "Connect" Baru (TANPA BORDER) */
+.connect-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 kolom */
+  gap: 1rem;
+  margin-top: 1.5rem; /* Sesuaikan jarak dari subtitle */
+}
+
+.connect-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  background-color: transparent; /* Hapus background */
+  border: 1px solid rgba(255, 255, 255, 0.1); /* Border tipis */
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.connect-card:hover {
+  border-color: #4f8cff;
+  background-color: rgba(79, 140, 255, 0.05); /* Efek hover ringan */
+}
+
+.connect-card span:first-child {
+  font-weight: 600;
+  color: #e0e6f1;
+  font-size: 1rem;
+}
+
+.connect-card .connect-username {
+  font-size: 0.875rem;
+  color: #a8b2d1;
+}
+
+/* 8. RESPONSIVE (PENTING) */
+@media (max-width: 768px) {
+  .contact-layout-container {
+    flex-direction: column; /* Tumpuk ke bawah di HP */
+    gap: 2rem;
+  }
+
+  .connect-column {
+    margin-top: 0; /* Reset margin di HP */
+    width: 100%;
+  }
+
+  /* Buat grid social jadi 2 kolom di HP */
+  .connect-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Buat grid social jadi 1 kolom lagi di HP sangat kecil */
+  .connect-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   GAYA HALAMAN DETAIL (REFERENSI ARITMATIKA)
+   ========================================= */
+
+/* Layout Utama: 2 Kolom */
+.details-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .details-wrapper {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 4rem;
+  }
+  /* Kiri 50%, Kanan 50% */
+  .details-left {
+    flex: 1;
+  }
+  .details-right {
+    flex: 1;
+  }
+}
+
+/* --- KOLOM KIRI --- */
+.detail-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #e0e6f1;
+  margin-bottom: 0.5rem;
+}
+
+.title-underline {
+  width: 80px;
+  height: 4px;
+  /* Gradient ungu-biru seperti di gambar referensi */
+  background: linear-gradient(to right, #4f8cff, #f5b841);
+  border-radius: 2px;
+  margin-bottom: 1.5rem;
+}
+
+.detail-description {
+  color: #8892b0;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+/* Statistik Kotak Kecil */
+.stats-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.stat-box-small {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.stat-icon {
+  color: #4f8cff; /* Warna ikon ungu */
+  width: 32px;
+  height: 32px;
+}
+
+.stat-text strong {
+  display: block;
+  font-size: 1.25rem;
+  color: #fff;
+}
+
+.stat-text span {
+  font-size: 0.75rem;
+  color: #8892b0;
+  text-transform: uppercase;
+}
+
+/* Tombol Action */
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+
+.btn-action {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s;
+  border: 1px solid transparent;
+}
+
+.btn-github {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e0e6f1;
+}
+.btn-github:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #e0e6f1;
+}
+
+.btn-demo.disabled {
+  background: transparent;
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+/* Tech Stack Tags */
+.tech-section h3 {
+  color: #e0e6f1;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.tech-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.tech-tag {
+  background: rgba(79, 140, 255, 0.1); /* Latar Ungu transparan */
+  color: #bcd4ff; /* Teks ungu muda */
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-family: monospace;
+  border: 1px solid rgba(79, 140, 255, 0.2);
+}
+
+/* --- KOLOM KANAN --- */
+
+/* Container Gambar (Pengganti Mockup) */
+.screenshot-container {
+  background: #101a33;
+  padding: 1rem;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: 2rem;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.3);
+}
+
+.screenshot-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+/* Key Features Card */
+.features-card {
+  background: rgba(2, 6, 23, 0.4); /* Latar sangat gelap */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 2rem;
+}
+
+.features-card h3 {
+  color: #e0e6f1;
+  font-size: 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.features-card ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.features-card ul li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+/* Bullet point custom (titik biru/ungu) */
+.features-card ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #4f8cff;
+  font-size: 1.5rem;
+  line-height: 1;
+  top: -2px;
+}
+.detail-navbar {
+  position: fixed; /* Agar menempel saat scroll */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1rem 0;
+  transition: all 0.3s ease;
+
+  /* Efek Kaca (Glassmorphism) */
+  background: rgba(8, 11, 26, 0.85);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.detail-nav-container {
+  max-width: 1200px; /* Menyamakan lebar dengan konten utama */
+  margin: 0 auto;
+  padding: 0 2rem; /* Padding kiri-kanan agar tidak mepet layar HP */
+  display: flex;
+  align-items: center;
+}
+
+/* Styling Tombol Back */
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: #a8b2d1;
+  font-weight: 600;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px; /* Bentuk kapsul */
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-back i {
+  width: 20px;
+  transition: transform 0.3s ease;
+}
+
+/* --- ANIMASI HOVER (KERENNYA DI SINI) --- */
+.btn-back:hover {
+  background: rgba(79, 140, 255, 0.1);
+  color: #7db2ff;
+  border-color: #7db2ff;
+  padding-right: 1.5rem;
+}
+
+.btn-back:hover i {
+  transform: translateX(-5px);
+}
+#ProjectDetails {
+  padding-top: 120px !important;
+  padding-bottom: 5rem;
+}
